@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
+
 class Solution
 {
 public:
     void find(vector<int> arr,int i,int n,vector<int> &ans,int &sum){
         if(i>=n){ans.push_back(sum);return;}
-        // cout<<" i:"<<i<<" "<<sum<<" |";
+
         int inc=sum+arr[i];
         find(arr,i+1,n,ans,inc);
-        ans.push_back(sum);
         find(arr,i+1,n,ans,sum);
         
     }
