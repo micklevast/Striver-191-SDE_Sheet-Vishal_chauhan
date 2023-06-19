@@ -1,5 +1,5 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include<bitset>/std.c++.h>
+#include<bits/stdc++.h>
 using namespace std;
