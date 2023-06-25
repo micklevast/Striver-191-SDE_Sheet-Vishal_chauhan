@@ -1,65 +1,33 @@
-#include<iostream>
-#include<bits/stdc++.h>
-// not getting correct answer!
+#include <iostream>
+#include <string>
+#include<vector>
 using namespace std;
+// good optimimsed but ,failed at one testcase!
 
-bool match(string a, string b) {
-    if (a.length() != b.length()) {
-        return false;
-    }
-    for (int i = 0; i < a.length(); i++) {
-        if (a[i] != b[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-int zAlgorithm(string s, string p, int n, int m) {
-    unordered_map<char, int> mp;
-    for (int i = 0; i < p.length(); i++) {
-        mp[p[i]]++;
-    }
-    int i = 0;
-    int j = 0;
-    int c = mp.size();
-    int k = p.length();
-    int ans = 0;
-    while (j < s.length()) {
-        if (j - i + 1 < k) {
-            if (mp.find(s[j]) != mp.end()) {
-                mp[s[j]]--;
-                if (mp[s[j]] == 0) {
-                    c--;
-                    mp.erase(s[j]);
-                }
-            }
-            j++;
-        }
-        else {
-            if (mp.find(s[j]) != mp.end()) {
-                mp[s[j]]--;
-                if (mp[s[j]] == 0) {
-                    c--;
-                    mp.erase(s[j]);
-                }
-            }
-            // calculate ans
-            if (c == 0 && match(p, s.substr(i, k))) {
-                ans++;
-            }
-
-            // slide the window
-            if (mp.find(s[i]) != mp.end()) {
-                mp[s[i]]++;
-            }
-            else {
-                mp[s[i]]++;
-                c++;
-            }
+int zAlgorithm(string s, string p, int n, int m)
+{
+	// Write your code here
+    int pl=p.length();
+    int sl=s.length();
+    string ttl=p+"$"+s;
+    vector<int> Zarray(n+m+1,0);
+    // cout<<"ttl:"<<ttl<<endl;
+    for(int i=1;i<(m+n+1);){
+        // cout<<"atINdex:"<<i<<" char:"<<ttl[i]<<endl;
+        int len=0;
+        int ii=i;
+        while(i<(m+n+1) && ttl[i]!='$' && ttl[i]==ttl[len]){
+            // cout<<"found at:"<<i<<" | ";
+            len++;
             i++;
-            j++;
         }
+        Zarray[ii]=len;
+        i=ii+1;
     }
+    int ans=0;
+    for(auto val:Zarray){
+        // cout<<val<<" ";
+        if(val==m)ans++;
+    }cout<<endl;
     return ans;
 }

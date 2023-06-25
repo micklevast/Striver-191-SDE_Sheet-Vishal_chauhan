@@ -1,5 +1,4 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h> 
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -13,15 +12,9 @@ using namespace std;
  */
 class Solution {
 public:
-    void find(TreeNode *root,vector<int> &ans){
-        if(root==NULL)return;
-        ans.push_back(root->val);
-        find(root->left,ans);
-        find(root->right,ans);
-    }
-    vector<int> preorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        find(root,ans);
-        return ans;
+    int maxDepth(TreeNode* root) {
+        if(root==nullptr)return 0;
+
+        return 1+max(maxDepth(root->left),maxDepth(root->right));
     }
 };
