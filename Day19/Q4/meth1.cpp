@@ -1,4 +1,5 @@
-#include <bits/stdc++.h> 
+#include<bits/stdc++.h>
+using namespace std;
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -12,12 +13,13 @@
  */
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        if(p==NULL || q==NULL){
-            return p==q;
-        }
+    bool check(TreeNode *r1,TreeNode* r2){
+        if(r1==NULL ||r2==NULL)return r1==r2;
+        return (r1->val==r2->val && check(r1->left,r2->right) && check(r1->right,r2->left));
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(root==NULL)return true;
 
-        return ((p->val==q->val) && isSameTree(p->left,q->left) && 
-                isSameTree(p->right,q->right));
+        return (check(root->left,root->right));
     }
 };
