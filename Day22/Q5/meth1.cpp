@@ -1,37 +1,43 @@
-#include<bits/stdc++.h>
+
+#include <bits/stdc++.h> 
 using namespace std;
+class Kthlargest {
+public:
+    // priority_queue<int> pq;//max heap
+    priority_queue<int,vector<int>,greater<int>> pq;
+    int kk;
+    Kthlargest(int k, vector<int> &arr) {
+       // Write your code here.
+       kk=k;
+       for(auto val:arr){
+           if(pq.size()<kk){
+               pq.push(val);
+           }
+           else{
+               if(pq.top()<val){
+                   pq.pop();
+                   pq.push(val);
+               }
+           }
+       }
+    }
 
-bool dfs(vector<int> adj[], vector<bool>& vis, vector<bool>& helper, int i) {
-    vis[i] = true;
-    helper[i] = true;
-
-    for (auto ngh : adj[i]) {
-        if (!vis[ngh]) {
-            if (dfs(adj, vis, helper, ngh))
-                return true;
-        } else if (helper[ngh]) {
-            return true;
+    void add(int num) {
+        // Write your code here.
+        if(pq.size()<kk){
+            pq.push(num);
+        }
+        else{
+            if(pq.top()<num){
+                pq.pop();
+                pq.push(num);
+            }
         }
     }
 
-    helper[i] = false;
-    return false;
-}
-
-bool detectCycleInDirectedGraph(int n, vector<pair<int, int>>& edges) {
-    vector<int> adj[n + 1];
-    for (int i = 0; i < edges.size(); i++) {
-        adj[edges[i].first].push_back(edges[i].second); // directed graph
+    int getKthLargest() {
+       // Write your code here.
+       return pq.top();
     }
 
-    vector<bool> visited(n + 1, false);
-    vector<bool> helper(n + 1, false);
-    for (int i = 1; i <= n; i++) {
-        if (!visited[i]) {
-            if (dfs(adj, visited, helper, i))
-                return true;
-        }
-    }
-
-    return false;
-}
+};
